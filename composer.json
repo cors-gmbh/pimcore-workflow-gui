@@ -24,7 +24,7 @@
   },
   "autoload": {
     "psr-4": {
-      "CORS\\Bundle\\WorkflowGUIBundle\\": "src/WorkflowGui"
+      "CORS\\Bundle\\WorkflowGUIBundle\\": "src/WorkflowGUI"
     }
   },
   "autoload-dev": {
