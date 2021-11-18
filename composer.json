@@ -12,6 +12,12 @@
   "homepage": "https://github.com/cors-gmbh/pimcore-workflow-gui",
   "authors": [
     {
+      "name": "CORS GmbH",
+      "email": "office@cors.gmbh",
+      "homepage": "https://www.cors.gmbh/",
+      "role": "TEAM"
+    },
+    {
       "name": "Dominik Pfaffenbauer",
       "email": "dominik@pfaffenbauer.at",
       "homepage": "https://www.pfaffenbauer.at/",
