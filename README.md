@@ -6,9 +6,9 @@
 Workflow GUI adds a User Interface for configuring Pimcore Workflows.
 
 ## Getting started
- * Install via composer ```composer require youwe/workflow-gui```
- * Enable via command-line (or inside the pimcore extension manager): ```bin/console pimcore:bundle:enable WorkflowGuiBundle```
- * Install via command-line (or inside the pimcore extension manager): ```bin/console pimcore:bundle:install WorkflowGuiBundle```
+ * Install via composer ```composer require cors/workflow-gui```
+ * Enable via command-line (or inside the pimcore extension manager): ```bin/console pimcore:bundle:enable WorkflowGUIBundle```
+ * Install via command-line (or inside the pimcore extension manager): ```bin/console pimcore:bundle:install WorkflowGUIBundle```
  * Make sure that the Bundles generated config is loaded (config/config.yaml): ```../var/bundles/workflow-gui/workflow.yml```
 
 ## Configuration
@@ -21,7 +21,7 @@ Workflow GUI adds a User Interface for configuring Pimcore Workflows.
  * At the Transitions tab, the Transitions are a required field
  
 For more information about the available options and description of the fields, go to the following URL:
-[Pimcore-Documentation/WorkflowManagement/ConfigurationDetails](https://pimcore.com/docs/5.x/Development_Documentation/Workflow_Management/Configuration_Details/index.html)
+[Pimcore-Documentation/WorkflowManagement/ConfigurationDetails](https://pimcore.com/docs/pimcore/current/Development_Documentation/Workflow_Management/Configuration_Details/index.html)
 
 ## Workflow History
 

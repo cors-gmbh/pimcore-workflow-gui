@@ -1,0 +1,195 @@
+/**
+ * CORS GmbH.
+ *
+ * This source file is available under two different licenses:
+ * - GNU General Public License version 3 (GPLv3)
+ * - Pimcore Commercial License (PCL)
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) CORS GmbH (https://www.cors.gmbh)
+ * @license    https://www.cors.gmbh/license     GPLv3 and PCL
+ */
+
+pimcore.registerNS('pimcore.plugin.workflow.transition_notification');
+pimcore.plugin.workflow.transition_notification = Class.create({
+    initialize: function (notificationStore, notification) {
+        this.notificationStore = notificationStore;
+
+        this.window = new Ext.window.Window({
+            title: t('workflow_transition_notification'),
+            items: this.getSettings(notification),
+            modal: true,
+            resizeable: false,
+            layout: 'fit',
+            width: 600,
+            height: 500
+        });
+
+        this.window.show();
+    },
+
+    getUserCombobox: function (value) {
+        var store = new Ext.data.Store({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/user/search',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'users'
+                }
+            },
+            fields: ["id", 'name', "email", "firstname", "lastname"]
+        });
+        store.load();
+
+        var resultTpl = new Ext.XTemplate(
+            '<tpl for="."><div class="x-boundlist-item" style="font-size: 11px;line-height: 15px;padding: 3px 10px 3px 10px; border: 1px solid #fff; border-bottom: 1px solid #eeeeee; color: #555;">',
+            '<img style="float:left; padding-right: 10px; max-height:30px;" src="/admin/user/get-image?id={id}" />',
+            '<h3 style="font-size: 13px;line-height: 16px;margin: 0;">{name} - {firstname} {lastname}</h3>',
+            '{email} <b>ID: </b> {id}',
+            '</div></tpl>'
+        );
+
+        return Ext.create('Ext.form.ComboBox', {
+            store: store,
+            name: 'notifyUsers',
+            displayField: 'name',
+            valueField: 'name',
+            loadingText: t('searching'),
+            fieldLabel: t('workflow_transition_notification_notify_users'),
+            minChars: 1,
+            tpl: resultTpl,
+            triggerAction: 'all',
+            multiSelect: true,
+            value: value,
+            listeners: {
+                afterrender: function () {
+                    this.focus(true, 500);
+                }
+            }
+        });
+    },
+
+    getRolesCombobox: function (value) {
+        var store = new Ext.data.Store({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/workflow/roles/search',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'roles'
+                }
+            },
+            fields: ["id", 'name']
+        });
+        store.load();
+
+        var resultTpl = new Ext.XTemplate(
+            '<tpl for="."><div class="x-boundlist-item" style="font-size: 11px;line-height: 15px;padding: 3px 10px 3px 10px; border: 1px solid #fff; border-bottom: 1px solid #eeeeee; color: #555;">',
+            '<h3 style="font-size: 13px;line-height: 16px;margin: 0;">{name}</h3>',
+            '<b>ID: </b> {id}',
+            '</div></tpl>'
+        );
+
+        return Ext.create('Ext.form.ComboBox', {
+            store: store,
+            name: 'notifyRoles',
+            displayField: 'name',
+            valueField: 'name',
+            loadingText: t('searching'),
+            fieldLabel: t('workflow_transition_notification_notify_roles'),
+            minChars: 1,
+            tpl: resultTpl,
+            triggerAction: 'all',
+            multiSelect: true,
+            value: value,
+            listeners: {
+                afterrender: function () {
+                    this.focus(true, 500);
+                }
+            }
+        });
+    },
+
+    getSettings: function (notification) {
+        this.settingsForm = new Ext.form.Panel({
+            bodyStyle: 'padding:20px 5px 20px 5px;',
+            border: false,
+            autoScroll: true,
+            forceLayout: true,
+            defaults: {
+                width: '100%',
+                labelWidth: 200
+            },
+            items: [
+                {
+                    xtype: 'textfield',
+                    name: 'condition',
+                    value: notification.get('condition'),
+                    fieldLabel: t('workflow_transition_notification_condition'),
+                },
+                this.getUserCombobox(notification.get('notifyUsers')),
+                this.getRolesCombobox(notification.get('notifyRoles')),
+                {
+                    xtype: 'multiselect',
+                    fieldLabel: t('workflow_transition_notification_channel_types'),
+                    name: 'channelType',
+                    store: Ext.data.ArrayStore({
+                        fields: ['type'],
+                        data: [
+                            ['mail'],
+                            ['pimcore_notification'],
+                        ]
+                    }),
+                    value: notification.get('channelType') ? notification.get('channelType') : 'mail',
+                    displayField: 'type',
+                    valueField: 'type',
+                    allowBlank: false
+                },
+                {
+                    xtype: 'combobox',
+                    fieldLabel: t('workflow_transition_notification_mail_type'),
+                    name: 'mailType',
+                    store: Ext.data.ArrayStore({
+                        fields: ['type'],
+                        data: [
+                            ['template'],
+                            ['pimcore_document'],
+                        ]
+                    }),
+                    value: notification.get('mailType') ? notification.get('mailType') : 'template',
+                    displayField: 'type',
+                    valueField: 'type',
+                    allowBlank: false
+                },
+                {
+                    xtype: 'textfield',
+                    fieldLabel: t('workflow_transition_notification_mail_path'),
+                    name: 'mailPath',
+                    value: notification.get('mailPath'),
+                }
+            ],
+            buttons: [
+                {
+                    text: t('save'),
+                    handler: function (btn) {
+                        if (this.settingsForm.isValid()) {
+                            var formValues = this.settingsForm.getForm().getFieldValues();
+
+                            notification.set(formValues);
+                            notification.commit();
+
+                            this.notificationStore.add(notification);
+
+                            this.window.close();
+                        }
+                    }.bind(this),
+                    iconCls: 'pimcore_icon_apply'
+                }
+            ],
+        });
+
+        return this.settingsForm;
+    }
+});

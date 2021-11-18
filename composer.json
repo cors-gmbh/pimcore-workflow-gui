@@ -1,5 +1,5 @@
 {
-  "name": "youwe/workflow-gui",
+  "name": "cors/workflow-gui",
   "type": "pimcore-bundle",
   "license": "GPL-3.0-or-later",
   "description": "Workflow Configuration UI for Pimcore",
@@ -9,7 +9,7 @@
     "pimcore-plugin",
     "pimcore-bundle"
   ],
-  "homepage": "https://github.com/YouweGit/pimcore-workflow-gui",
+  "homepage": "https://github.com/cors-gmbh/pimcore-workflow-gui",
   "authors": [
     {
       "name": "Dominik Pfaffenbauer",
@@ -24,7 +24,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Youwe\\Pimcore\\WorkflowGui\\": "src/WorkflowGui"
+      "CORS\\Bundle\\WorkflowGUIBundle\\": "src/WorkflowGui"
     }
   },
   "autoload-dev": {
@@ -35,7 +35,7 @@
   "extra": {
     "pimcore": {
       "bundles": [
-        "Youwe\\Pimcore\\WorkflowGui\\WorkflowGuiBundle"
+        "CORS\\Bundle\\WorkflowGUIBundle\\WorkflowGUIBundle"
       ]
     },
     "branch-alias": {
