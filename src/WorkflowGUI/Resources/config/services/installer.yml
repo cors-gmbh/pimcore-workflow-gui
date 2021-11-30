@@ -5,8 +5,8 @@ services:
         public: true
 
     # tool: installer
-    CORS\Bundle\WorkflowGUIBundle\Installer\WorkflowGuiInstaller:
+    CORS\Bundle\WorkflowGUI\Installer\WorkflowGuiInstaller:
         public: true
         arguments:
-            $bundle: "@=service('kernel').getBundle('WorkflowGuiBundle')"
+            $bundle: "@=service('kernel').getBundle('WorkflowGUIBundle')"
 

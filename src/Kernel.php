@@ -19,6 +19,6 @@ class Kernel extends PimcoreKernel
 {
     public function registerBundlesToCollection(BundleCollection $collection)
     {
-        $collection->addBundle(new \CORS\Bundle\WorkflowGUI\WorkflowGuiBundle());
+        $collection->addBundle(new \CORS\Bundle\WorkflowGUI\WorkflowGUIBundle());
     }
 }

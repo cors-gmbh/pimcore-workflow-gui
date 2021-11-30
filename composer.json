@@ -30,7 +30,7 @@
   },
   "autoload": {
     "psr-4": {
-      "CORS\\Bundle\\WorkflowGUIBundle\\": "src/WorkflowGUI"
+      "CORS\\Bundle\\WorkflowGUI\\": "src/WorkflowGUI"
     }
   },
   "autoload-dev": {
@@ -41,7 +41,7 @@
   "extra": {
     "pimcore": {
       "bundles": [
-        "CORS\\Bundle\\WorkflowGUIBundle\\WorkflowGUIBundle"
+        "CORS\\Bundle\\WorkflowGUI\\WorkflowGUIBundle"
       ]
     },
     "branch-alias": {
