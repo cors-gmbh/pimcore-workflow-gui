@@ -341,7 +341,7 @@ class WorkflowController extends AdminController
 
         $cmd = $php.' '.PIMCORE_PROJECT_ROOT.'/bin/console --env="${:arg_environment}" pimcore:workflow:dump "${:arg_workflow}" | '.$dot.' -T"${:arg_format}"';
 
-        $cmd = Console::addLowProcessPriority($cmd);
+        Console::addLowProcessPriority($cmd);
         $process = Process::fromShellCommandline($cmd);
         $process->run(null, [
             'arg_environment' => $this->kernel->getEnvironment(),
