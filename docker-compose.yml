@@ -1,51 +1,86 @@
-version: '3.4'
+name: workflow-gui
+
+networks:
+  cors_dev:
+    external: true
+  workflow-gui:
+    external: false
+
 services:
   redis:
-    image: redis
+    container_name: workflow-gui-redis
+    image: redis:alpine
+    command: redis-server --requirepass password
+    networks:
+      - workflow-gui
 
   db:
-    image: mariadb:10.6
-    container_name: workflow-gui--mariadb
+    image: mysql:8
+    container_name: workflow-gui
+    networks:
+      - cors_dev
+      - workflow-gui
     working_dir: /application
-    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci]
     volumes:
-      - workflow-gui--4-database:/var/lib/mysql
+      - workflow-gui-database:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=ROOT
       - MYSQL_DATABASE=pimcore
       - MYSQL_USER=pimcore
       - MYSQL_PASSWORD=pimcore
 
-  adminer:
-    image: adminer
-    ports:
-      - 2002:8080
+  nginx:
+    image: nginx:stable-alpine
+    container_name: workflow-gui-nginx
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.workflow-gui.rule=HostRegexp(`workflow-gui.localhost`, `{subdomain:(.*)}.workflow-gui.localhost`)
+      - traefik.http.routers.workflow-gui.entrypoints=cors_dev
+      - traefik.http.routers.workflow-gui.tls=true
+      - traefik.http.services.workflow-gui.loadbalancer.server.port=80
+      - traefik.docker.network=cors_dev
+    networks:
+      - cors_dev
+      - workflow-gui
+    volumes:
+      - ./:/var/www/html:ro
+      - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - php-debug
 
   php:
-    image: pimcore/pimcore:PHP8.0-apache
-    container_name: workflow-gui--php
-    volumes:
-      - .:/var/www/html:cached
-      - .docker/php/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
-    ports:
-     - "2000:80"
-     - "2001:443"
-    depends_on:
-     - db
-
-  php-debug:
-    image: pimcore/pimcore:PHP8.0-apache-debug
-    container_name: workflow-gui--debug-php
-    volumes:
-      - .:/var/www/html:cached
-      - .docker/php/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
-    ports:
-     - "2006:80"
+    image: git.e-conomix.at:5050/cors/docker/php-alpine-3.19-fpm:8.2-5.1.7
+    container_name: php-workflow-gui
+    command: 'php-fpm'
+    entrypoint: docker-php-entrypoint
+    networks:
+      - workflow-gui
+      - cors_dev
     depends_on:
       - db
+    volumes:
+      - ./:/var/www/html:cached
+      - ./.docker/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-additional.ini:ro
     environment:
-      - PHP_DEBUG=1
-      - PHP_IDE_CONFIG="serverName=localhost"
+      - COMPOSER_AUTH=${COMPOSER_AUTH}
+
+  php-debug:
+    image: git.e-conomix.at:5050/cors/docker/php-alpine-3.19-fpm-debug:8.2-5.1.7
+    command: 'php-fpm'
+    entrypoint: xdebug-entrypoint
+    container_name: php-debug-workflow-gui
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www/html:cached
+      - ./.docker/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-additional.ini:ro
+    networks:
+      - workflow-gui
+      - cors_dev
+    environment:
+      - PHP_IDE_CONFIG=serverName=localhost
+      - COMPOSER_AUTH=${COMPOSER_AUTH:-}
 
 volumes:
-  workflow-gui--4-database:
+  workflow-gui-database:

@@ -1,35 +1,35 @@
 workflow_gui.admin.list:
     path: /admin/workflow/list
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::listAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::listAction }
 
 workflow_gui.admin.get:
     path: /admin/workflow/get
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::getAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::getAction }
 
 workflow_gui.admin.clone:
     path: /admin/workflow/clone
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::cloneAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::cloneAction }
 
 workflow_gui.admin.save:
     path: /admin/workflow/save
     methods: [POST]
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::saveAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::saveAction }
 
 workflow_gui.admin.delete:
     path: /admin/workflow/delete
     methods: [POST]
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::deleteAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::deleteAction }
 
 workflow_gui.admin.visualize:
     path: /admin/workflow/visualize
     methods: [GET]
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::visualizeAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::visualizeAction }
 
 workflow_gui.admin.visualize_image:
     path: /admin/workflow/visualize_image
     methods: [GET]
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::visualizeImageAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::visualizeImageAction }
 
 workflow_gui.roles.search:
     path: /admin/workflow/roles/search
-    defaults: { _controller: Youwe\Pimcore\WorkflowGui\Controller\WorkflowController::searchRolesAction }
+    defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::searchRolesAction }

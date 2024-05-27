@@ -1,20 +1,17 @@
 <?php
-/**
- * Workflow Pimcore Plugin
- *
- * LICENSE
- *
- * This source file is subject to the GNU General Public License version 3 (GPLv3)
- * For the full copyright and license information, please view the LICENSE.md and gpl-3.0.txt
- * files that are distributed with this source code.
- *
- * @copyright  Copyright (c) 2018-2019 Youwe (https://www.youwe.nl)
- * @license    https://github.com/YouweGit/pimcore-workflow-gui/blob/master/LICENSE.md     GNU General Public License version 3 (GPLv3)
- */
 
 declare(strict_types=1);
 
-namespace Youwe\Pimcore\WorkflowGui\Controller;
+/*
+ * CORS GmbH
+ *
+ * This software is available under the GNU General Public License version 3 (GPLv3).
+ *
+ * @copyright  Copyright (c) CORS GmbH (https://www.cors.gmbh)
+ * @license    https://www.cors.gmbh/license GPLv3
+ */
+
+namespace CORS\Pimcore\WorkflowGui\Controller;
 
 use Pimcore\Bundle\CoreBundle\DependencyInjection\Configuration;
 use Pimcore\Cache\Symfony\CacheClearer;
@@ -30,8 +27,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Youwe\Pimcore\WorkflowGui\Repository\WorkflowRepositoryInterface;
-use Youwe\Pimcore\WorkflowGui\Resolver\ConfigFileResolverInterface;
+use CORS\Pimcore\WorkflowGui\Repository\WorkflowRepositoryInterface;
+use CORS\Pimcore\WorkflowGui\Resolver\ConfigFileResolverInterface;
 
 class WorkflowController extends UserAwareController
 {
@@ -42,7 +39,8 @@ class WorkflowController extends UserAwareController
         protected ConfigFileResolverInterface $configFileResolver,
         protected KernelInterface $kernel,
         protected CacheClearer $cacheClearer,
-    ) {}
+    ) {
+    }
 
     public function listAction(): JsonResponse
     {
@@ -97,6 +95,7 @@ class WorkflowController extends UserAwareController
 
         $this->repository->updateConfig(function (array $workflows) use ($id, $name): array {
             $workflows[$name] = $workflows[$id];
+
             return $workflows;
         });
         $this->cacheClearer->clear($this->kernel->getEnvironment());
@@ -120,14 +119,15 @@ class WorkflowController extends UserAwareController
         $processor = new Processor();
 
         try {
-            $processor->processConfiguration($configuration, [
-                    'pimcore' =>
-                        [
+            $processor->processConfiguration(
+                $configuration,
+                [
+                    'pimcore' => [
                             'workflows' => [
                                 $newId => $testConfig,
                             ],
                         ],
-                ]
+                ],
             );
         } catch (\Throwable $ex) {
             return $this->json(['success' => false, 'message' => $ex->getMessage()]);
@@ -139,6 +139,7 @@ class WorkflowController extends UserAwareController
             }
 
             $workflows[$newId] = $newConfiguration;
+
             return $workflows;
         });
         $this->cacheClearer->clear($this->kernel->getEnvironment());
@@ -158,6 +159,7 @@ class WorkflowController extends UserAwareController
             if (isset($workflows[$id])) {
                 unset($workflows[$id]);
             }
+
             return $workflows;
         });
         $this->cacheClearer->clear($this->kernel->getEnvironment());
@@ -169,7 +171,7 @@ class WorkflowController extends UserAwareController
     {
         $this->isGrantedOr403();
 
-        $q = '%'.$request->get('query').'%';
+        $q = '%' . $request->get('query') . '%';
 
         $list = new User\Role\Listing();
         $list->setCondition('name LIKE ?', [$q]);
@@ -179,7 +181,6 @@ class WorkflowController extends UserAwareController
 
         $roles = [];
         if (is_array($list->getRoles())) {
-
             /** @var User\Role $role */
             foreach ($list->getRoles() as $role) {
                 if ($role instanceof User\Role && $role->getId()) {
@@ -218,7 +219,7 @@ class WorkflowController extends UserAwareController
             foreach ($configuration['places'] as $placeKey => &$placeConfig) {
                 if (isset($placeConfig['color'])) {
                     if (substr($placeConfig['color'], 0, 1) !== '#') {
-                        $placeConfig['color'] = '#'.$placeConfig['color'];
+                        $placeConfig['color'] = '#' . $placeConfig['color'];
                     }
                 }
                 foreach ($placeConfig as $placeConfigKey => $value) {
@@ -236,7 +237,7 @@ class WorkflowController extends UserAwareController
                         }
 
                         if (count($permissionConfig) === 0) {
-                            unset ($placeConfig['permissions'][$permissionIndex]);
+                            unset($placeConfig['permissions'][$permissionIndex]);
                         }
                     }
 
@@ -259,15 +260,15 @@ class WorkflowController extends UserAwareController
                     if (isset($transitionConfig['options']['notes']['additionalFields'])) {
                         foreach ($transitionConfig['options']['notes']['additionalFields'] as &$additionalField) {
                             if (!$additionalField['setterFn']) {
-                                unset ($additionalField['setterFn']);
+                                unset($additionalField['setterFn']);
                             }
 
                             if (!$additionalField['title']) {
-                                unset ($additionalField['title']);
+                                unset($additionalField['title']);
                             }
 
                             if (!$additionalField['required']) {
-                                unset ($additionalField['required']);
+                                unset($additionalField['required']);
                             }
                         }
                     }
@@ -287,7 +288,7 @@ class WorkflowController extends UserAwareController
                 '@WorkflowGui/Workflow/visualize.html.twig',
                 [
                     'image' => $this->getVisualization($request->get('workflow'), 'svg'),
-                ]
+                ],
             ));
         } catch (\Throwable $e) {
             return new Response($e->getMessage());
@@ -342,7 +343,7 @@ class WorkflowController extends UserAwareController
             throw new \InvalidArgumentException($this->trans('workflow_gui_enable_message'));
         }
 
-        $cmd = $php.' '.PIMCORE_PROJECT_ROOT.'/bin/console --env="${:arg_environment}" pimcore:workflow:dump "${:arg_workflow}" | '.$dot.' -T"${:arg_format}"';
+        $cmd = $php . ' ' . PIMCORE_PROJECT_ROOT . '/bin/console --env="${:arg_environment}" pimcore:workflow:dump "${:arg_workflow}" | ' . $dot . ' -T"${:arg_format}"';
 
         $process = Process::fromShellCommandline($cmd);
         $process->run(null, [

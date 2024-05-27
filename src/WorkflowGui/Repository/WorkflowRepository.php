@@ -1,31 +1,29 @@
 <?php
-/**
- * Workflow Pimcore Plugin
- *
- * LICENSE
- *
- * This source file is subject to the GNU General Public License version 3 (GPLv3)
- * For the full copyright and license information, please view the LICENSE.md and gpl-3.0.txt
- * files that are distributed with this source code.
- *
- * @copyright  Copyright (c) 2018-2019 Youwe (https://www.youwe.nl)
- * @license    https://github.com/YouweGit/pimcore-workflow-gui/blob/master/LICENSE.md     GNU General Public License version 3 (GPLv3)
- */
 
 declare(strict_types=1);
 
-namespace Youwe\Pimcore\WorkflowGui\Repository;
+/*
+ * CORS GmbH
+ *
+ * This software is available under the GNU General Public License version 3 (GPLv3).
+ *
+ * @copyright  Copyright (c) CORS GmbH (https://www.cors.gmbh)
+ * @license    https://www.cors.gmbh/license GPLv3
+ */
+
+namespace CORS\Pimcore\WorkflowGui\Repository;
 
 use Pimcore\Bundle\CoreBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Yaml\Yaml;
-use Youwe\Pimcore\WorkflowGui\Resolver\ConfigFileResolverInterface;
+use CORS\Pimcore\WorkflowGui\Resolver\ConfigFileResolverInterface;
 
 class WorkflowRepository implements WorkflowRepositoryInterface
 {
     public function __construct(
         protected ConfigFileResolverInterface $configFileResolver,
-    ) {}
+    ) {
+    }
 
     public function findAll(): array
     {
@@ -40,7 +38,7 @@ class WorkflowRepository implements WorkflowRepositoryInterface
             function ($key) use ($id) {
                 return $id === $key;
             },
-            ARRAY_FILTER_USE_KEY
+            \ARRAY_FILTER_USE_KEY,
         );
 
         return reset($filtered);
@@ -68,7 +66,7 @@ class WorkflowRepository implements WorkflowRepositoryInterface
     protected function loadConfig(): array
     {
         return Yaml::parse(
-            file_get_contents($this->configFileResolver->getConfigPath())
+            file_get_contents($this->configFileResolver->getConfigPath()),
         ) ?? [];
     }
 
@@ -76,7 +74,7 @@ class WorkflowRepository implements WorkflowRepositoryInterface
     {
         file_put_contents(
             $this->configFileResolver->getConfigPath(),
-            Yaml::dump($config, 100)
+            Yaml::dump($config, 100),
         );
     }
 }

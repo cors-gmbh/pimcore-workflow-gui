@@ -5,7 +5,7 @@ services:
         public: true
 
     # tool: installer
-    Youwe\Pimcore\WorkflowGui\Installer\WorkflowGuiInstaller:
+    CORS\Pimcore\WorkflowGui\Installer\WorkflowGuiInstaller:
         public: true
         arguments:
             $bundle: "@=service('kernel').getBundle('WorkflowGuiBundle')"

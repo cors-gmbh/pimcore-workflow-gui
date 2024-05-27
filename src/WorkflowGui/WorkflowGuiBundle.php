@@ -1,22 +1,21 @@
 <?php
-/**
- * Workflow Pimcore Plugin
+
+declare(strict_types=1);
+
+/*
+ * CORS GmbH
  *
- * LICENSE
+ * This software is available under the GNU General Public License version 3 (GPLv3).
  *
- * This source file is subject to the GNU General Public License version 3 (GPLv3)
- * For the full copyright and license information, please view the LICENSE.md and gpl-3.0.txt
- * files that are distributed with this source code.
- *
- * @copyright  Copyright (c) 2018-2019 Youwe (https://www.youwe.nl)
- * @license    https://github.com/YouweGit/pimcore-workflow-gui/blob/master/LICENSE.md     GNU General Public License version 3 (GPLv3)
+ * @copyright  Copyright (c) CORS GmbH (https://www.cors.gmbh)
+ * @license    https://www.cors.gmbh/license GPLv3
  */
 
-namespace Youwe\Pimcore\WorkflowGui;
+namespace CORS\Pimcore\WorkflowGui;
 
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 use Pimcore\Extension\Bundle\Traits\PackageVersionTrait;
-use Youwe\Pimcore\WorkflowGui\Installer\WorkflowGuiInstaller;
+use CORS\Pimcore\WorkflowGui\Installer\WorkflowGuiInstaller;
 
 class WorkflowGuiBundle extends AbstractPimcoreBundle
 {
@@ -24,20 +23,20 @@ class WorkflowGuiBundle extends AbstractPimcoreBundle
 
     protected function getComposerPackageName(): string
     {
-        return 'youwe/workflow-gui';
+        return 'cors/workflow-gui';
     }
 
-    public function getNiceName()
+    public function getNiceName(): string
     {
         return 'Workflow GUI';
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return 'Provides a Graphical User Interface to define Pimcore Workflows';
     }
 
-    public function getInstaller()
+    public function getInstaller(): ?\Pimcore\Extension\Bundle\Installer\InstallerInterface
     {
         return $this->container->get(WorkflowGuiInstaller::class);
     }
@@ -64,7 +63,7 @@ class WorkflowGuiBundle extends AbstractPimcoreBundle
     public function getCssPaths()
     {
         return [
-            '/bundles/workflowgui/css/workflow_gui.css'
+            '/bundles/workflowgui/css/workflow_gui.css',
         ];
     }
 }

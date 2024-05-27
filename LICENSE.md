@@ -1,5 +1,5 @@
 # License
-Copyright (c) 2018-2019 Youwe (https://www.youwe.nl)
+Copyright (c) 2018-2024 CORS GmbH (https://www.cors.gmbh)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
