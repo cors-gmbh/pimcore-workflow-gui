@@ -1,6 +1,6 @@
-pimcore.registerNS('pimcore.plugin.WorkflowGuiBundle.startup');
+pimcore.registerNS('pimcore.plugin.WorkflowGUIBundle.startup');
 
-pimcore.plugin.WorkflowGuiBundle.startup = {
+pimcore.plugin.WorkflowGUIBundle.startup = {
     addMenuItem: function () {
         var user = pimcore.globalmanager.get('user');
         var perspectiveCfg = pimcore.globalmanager.get('perspective');
@@ -27,6 +27,6 @@ pimcore.plugin.WorkflowGuiBundle.startup = {
 };
 
 document.addEventListener(pimcore.events.pimcoreReady, function () {
-    pimcore.plugin.WorkflowGuiBundle.startup.addMenuItem();
+    pimcore.plugin.WorkflowGUIBundle.startup.addMenuItem();
 });
 

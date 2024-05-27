@@ -2,18 +2,18 @@ imports:
     - { resource: 'services/installer.yml' }
 
 services:
-    CORS\Pimcore\WorkflowGui\Resolver\ConfigFileResolver:
+    CORS\Pimcore\WorkflowGUI\Resolver\ConfigFileResolver:
         arguments:
             - '%workflow_gui.config%'
 
-    CORS\Pimcore\WorkflowGui\Repository\WorkflowRepository:
+    CORS\Pimcore\WorkflowGUI\Repository\WorkflowRepository:
         arguments:
-            - '@CORS\Pimcore\WorkflowGui\Resolver\ConfigFileResolver'
+            - '@CORS\Pimcore\WorkflowGUI\Resolver\ConfigFileResolver'
 
-    CORS\Pimcore\WorkflowGui\Controller\WorkflowController:
+    CORS\Pimcore\WorkflowGUI\Controller\WorkflowController:
         arguments:
-            - '@CORS\Pimcore\WorkflowGui\Repository\WorkflowRepository'
-            - '@CORS\Pimcore\WorkflowGui\Resolver\ConfigFileResolver'
+            - '@CORS\Pimcore\WorkflowGUI\Repository\WorkflowRepository'
+            - '@CORS\Pimcore\WorkflowGUI\Resolver\ConfigFileResolver'
             - '@kernel'
             - '@Pimcore\Cache\Symfony\CacheClearer'
         tags:

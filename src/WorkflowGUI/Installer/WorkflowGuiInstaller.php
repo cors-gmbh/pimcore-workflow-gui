@@ -17,7 +17,7 @@ use Pimcore\Db;
 use Pimcore\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
 use Pimcore\Model\User\Permission;
 
-final class WorkflowGuiInstaller extends SettingsStoreAwareInstaller
+final class WorkflowGUIInstaller extends SettingsStoreAwareInstaller
 {
     public const WORKFLOW_GUI = 'workflow_gui';
 

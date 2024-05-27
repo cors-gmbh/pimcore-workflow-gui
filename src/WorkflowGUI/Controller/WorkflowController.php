@@ -285,7 +285,7 @@ class WorkflowController extends UserAwareController
 
         try {
             return new Response($this->container->get('twig')->render(
-                '@WorkflowGui/Workflow/visualize.html.twig',
+                '@WorkflowGUI/Workflow/visualize.html.twig',
                 [
                     'image' => $this->getVisualization($request->get('workflow'), 'svg'),
                 ],
