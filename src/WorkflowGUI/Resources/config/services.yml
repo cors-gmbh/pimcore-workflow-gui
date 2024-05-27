@@ -2,6 +2,10 @@ imports:
     - { resource: 'services/installer.yml' }
 
 services:
+    CORS\Pimcore\WorkflowGUI\EventListener\AdminJavascriptListener:
+        tags:
+            - { name: kernel.event_subscriber }
+
     CORS\Pimcore\WorkflowGUI\Resolver\ConfigFileResolver:
         arguments:
             - '%workflow_gui.config%'
