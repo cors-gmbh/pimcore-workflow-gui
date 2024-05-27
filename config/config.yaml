@@ -1,7 +1,6 @@
 imports:
     - { resource: services.yaml }
     - { resource: 'local/' }
-    - { resource: '../var/bundles/workflow-gui/workflow.yml' }
 
 
 pimcore:
