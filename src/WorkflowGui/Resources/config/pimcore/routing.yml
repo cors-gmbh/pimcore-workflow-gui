@@ -33,3 +33,4 @@ workflow_gui.admin.visualize_image:
 workflow_gui.roles.search:
     path: /admin/workflow/roles/search
     defaults: { _controller: CORS\Pimcore\WorkflowGui\Controller\WorkflowController::searchRolesAction }
+
