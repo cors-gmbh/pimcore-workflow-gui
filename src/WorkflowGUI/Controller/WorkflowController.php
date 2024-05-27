@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license    https://www.cors.gmbh/license GPLv3
  */
 
-namespace CORS\Pimcore\WorkflowGui\Controller;
+namespace CORS\Pimcore\WorkflowGUI\Controller;
 
 use Pimcore\Bundle\CoreBundle\DependencyInjection\Configuration;
 use Pimcore\Cache\Symfony\CacheClearer;
@@ -27,8 +27,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use CORS\Pimcore\WorkflowGui\Repository\WorkflowRepositoryInterface;
-use CORS\Pimcore\WorkflowGui\Resolver\ConfigFileResolverInterface;
+use CORS\Pimcore\WorkflowGUI\Repository\WorkflowRepositoryInterface;
+use CORS\Pimcore\WorkflowGUI\Resolver\ConfigFileResolverInterface;
 
 class WorkflowController extends UserAwareController
 {

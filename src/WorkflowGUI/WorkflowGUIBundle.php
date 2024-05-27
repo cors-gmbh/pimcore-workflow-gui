@@ -11,11 +11,11 @@ declare(strict_types=1);
  * @license    https://www.cors.gmbh/license GPLv3
  */
 
-namespace CORS\Pimcore\WorkflowGui;
+namespace CORS\Pimcore\WorkflowGUI;
 
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 use Pimcore\Extension\Bundle\Traits\PackageVersionTrait;
-use CORS\Pimcore\WorkflowGui\Installer\WorkflowGuiInstaller;
+use CORS\Pimcore\WorkflowGUI\Installer\WorkflowGuiInstaller;
 
 class WorkflowGuiBundle extends AbstractPimcoreBundle
 {

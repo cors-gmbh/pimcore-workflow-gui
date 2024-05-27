@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license    https://www.cors.gmbh/license GPLv3
  */
 
-namespace CORS\Pimcore\WorkflowGui\Resolver;
+namespace CORS\Pimcore\WorkflowGUI\Resolver;
 
 use Symfony\Component\Filesystem\Filesystem;
 

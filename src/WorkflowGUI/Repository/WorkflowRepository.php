@@ -11,12 +11,12 @@ declare(strict_types=1);
  * @license    https://www.cors.gmbh/license GPLv3
  */
 
-namespace CORS\Pimcore\WorkflowGui\Repository;
+namespace CORS\Pimcore\WorkflowGUI\Repository;
 
 use Pimcore\Bundle\CoreBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Yaml\Yaml;
-use CORS\Pimcore\WorkflowGui\Resolver\ConfigFileResolverInterface;
+use CORS\Pimcore\WorkflowGUI\Resolver\ConfigFileResolverInterface;
 
 class WorkflowRepository implements WorkflowRepositoryInterface
 {

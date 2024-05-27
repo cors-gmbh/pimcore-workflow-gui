@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license    https://www.cors.gmbh/license GPLv3
  */
 
-namespace CORS\Pimcore\WorkflowGui\DependencyInjection;
+namespace CORS\Pimcore\WorkflowGUI\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

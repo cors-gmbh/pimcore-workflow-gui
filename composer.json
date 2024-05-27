@@ -24,7 +24,7 @@
   },
   "autoload": {
     "psr-4": {
-      "CORS\\Pimcore\\WorkflowGui\\": "src/WorkflowGui"
+      "CORS\\Pimcore\\WorkflowGUI\\": "src/WorkflowGUI"
     }
   },
   "autoload-dev": {
