@@ -35,7 +35,7 @@
   "extra": {
     "pimcore": {
       "bundles": [
-        "CORS\\Pimcore\\WorkflowGui\\WorkflowGuiBundle"
+        "CORS\\Pimcore\\WorkflowGui\\WorkflowGUIBundle"
       ]
     },
     "branch-alias": {
