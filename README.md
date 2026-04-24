@@ -68,7 +68,7 @@ pimcore:
  * At the Transitions tab, the Transitions are a required field
  
 For more information about the available options and description of the fields, go to the following URL:
-[Pimcore-Documentation/WorkflowManagement/ConfigurationDetails](https://pimcore.com/docs/5.x/Development_Documentation/Workflow_Management/Configuration_Details/index.html)
+[Pimcore-Documentation/WorkflowManagement/ConfigurationDetails](https://docs.pimcore.com/pimcore/10.0/Development_Documentation/Workflow_Management/Configuration_Details/index.html)
 
 ## Workflow History
 
