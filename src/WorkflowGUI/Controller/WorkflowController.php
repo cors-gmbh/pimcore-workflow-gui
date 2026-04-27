@@ -276,6 +276,32 @@ class WorkflowController extends UserAwareController
             }
         }
 
+        if (isset($configuration['globalActions'])) {
+            foreach ($configuration['globalActions'] as $actionKey => &$actionConfig) {
+                foreach ($actionConfig as $actionConfigKey => $value) {
+                    if (!$value) {
+                        unset($actionConfig[$actionConfigKey]);
+                    }
+                }
+
+                if (isset($actionConfig['notes']['additionalFields'])) {
+                    foreach ($actionConfig['notes']['additionalFields'] as &$additionalField) {
+                        if (!$additionalField['setterFn']) {
+                            unset($additionalField['setterFn']);
+                        }
+
+                        if (!$additionalField['title']) {
+                            unset($additionalField['title']);
+                        }
+
+                        if (!$additionalField['required']) {
+                            unset($additionalField['required']);
+                        }
+                    }
+                }
+            }
+        }
+
         return $configuration;
     }
 
