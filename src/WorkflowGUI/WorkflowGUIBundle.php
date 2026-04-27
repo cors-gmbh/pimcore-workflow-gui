@@ -16,6 +16,7 @@ namespace CORS\Pimcore\WorkflowGUI;
 use CORS\Pimcore\WorkflowGUI\Installer\WorkflowGUIInstaller;
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 use Pimcore\Extension\Bundle\Traits\PackageVersionTrait;
+use Pimcore\Extension\Bundle\Installer\InstallerInterface;
 
 class WorkflowGUIBundle extends AbstractPimcoreBundle
 {
@@ -36,7 +37,7 @@ class WorkflowGUIBundle extends AbstractPimcoreBundle
         return 'Provides a Graphical User Interface to define Pimcore Workflows';
     }
 
-    public function getInstaller(): ?\Pimcore\Extension\Bundle\Installer\InstallerInterface
+    public function getInstaller(): ?InstallerInterface
     {
         return $this->container->get(WorkflowGUIInstaller::class);
     }
