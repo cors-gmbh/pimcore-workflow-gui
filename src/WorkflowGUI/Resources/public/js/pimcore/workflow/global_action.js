@@ -166,6 +166,12 @@ pimcore.plugin.workflow.global_action = Class.create({
                 },
                 {
                     xtype: 'textfield',
+                    name: 'label',
+                    value: globalAction.get('label'),
+                    fieldLabel: t('workflow_global_action_label'),
+                },
+                {
+                    xtype: 'textfield',
                     name: 'iconClass',
                     value: globalAction.get('iconClass'),
                     fieldLabel: t('workflow_global_action_icon_class'),
